@@ -205,3 +205,32 @@ Modifica los estilos en `src/App.css` para cambiar la apariencia del panel de co
 
 **Hecho con ❤️ y React + Vite**
 
+
+## 🌐 Deploy a Producción
+
+Este proyecto se puede deployar en:
+- **Frontend**: Vercel
+- **Backend**: Railway
+
+Lee la **[Guía de Deploy completa](DEPLOY.md)** para instrucciones detalladas.
+
+### Quick Deploy
+
+**Backend en Railway:**
+```bash
+railway login
+railway init
+railway up
+```
+
+**Frontend en Vercel:**
+```bash
+# Configura la variable de entorno primero
+echo "VITE_API_URL=https://tu-proyecto.railway.app/api" > .env.production
+
+vercel login
+vercel --prod
+```
+
+Recuerda agregar `VITE_API_URL` como variable de entorno en Vercel Dashboard.
+
