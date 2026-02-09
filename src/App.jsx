@@ -3,6 +3,11 @@ import './App.css'
 
 const API = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
 
+console.log('🔍 DEBUG - Variables de entorno:')
+console.log('  import.meta.env.VITE_API_URL:', import.meta.env.VITE_API_URL)
+console.log('  API constante final:', API)
+console.log('  Todas las env vars:', import.meta.env)
+
 function App() {
   const [url, setUrl] = useState('https://www.costplusdrugs.com')
   const [status, setStatus] = useState('')
@@ -33,16 +38,24 @@ document.body.prepend(banner);`)
 
   // Screenshot
   const takeScreenshot = useCallback(async () => {
+    console.log('📸 Tomando screenshot...')
+    console.log('  URL completa:', `${API}/screenshot`)
     try {
       const res = await fetch(`${API}/screenshot`)
+      console.log('  Respuesta screenshot status:', res.status)
       const data = await res.json()
+      console.log('  Data screenshot:', data)
       if (data.success) {
         setScreenshot(data.image)
         setPageTitle(data.title || '')
         setPageUrl(data.url || '')
-        if (!connected) setConnected(true)
+        if (!connected) {
+          console.log('✅ Conectado!')
+          setConnected(true)
+        }
       }
-    } catch {
+    } catch (err) {
+      console.error('❌ Error en screenshot:', err)
       setConnected(false)
     }
   }, [connected])
@@ -50,22 +63,34 @@ document.body.prepend(banner);`)
   // Navegar
   const navigate = async (targetUrl) => {
     const navUrl = targetUrl || url
+    console.log('🚀 Navegando a:', navUrl)
+    console.log('  API URL completa:', `${API}/navigate?url=${encodeURIComponent(navUrl)}`)
     setLoading(true)
     setStatus('Navegando...')
     try {
       const res = await fetch(`${API}/navigate?url=${encodeURIComponent(navUrl)}`)
+      console.log('  Respuesta navigate status:', res.status)
+      console.log('  Respuesta navigate ok:', res.ok)
       const data = await res.json()
+      console.log('  Data navigate:', data)
       if (data.success) {
+        console.log('✅ Navegación exitosa')
         setPageTitle(data.title)
         setPageUrl(data.url)
         setUrl(data.url)
         setStatus('')
         await takeScreenshot()
       } else {
+        console.error('❌ Error en respuesta:', data.error)
         setStatus(`Error: ${data.error}`)
       }
-    } catch {
+    } catch (err) {
+      console.error('❌ Error en navigate:', err)
+      console.error('  Tipo:', err.name)
+      console.error('  Mensaje:', err.message)
+      console.error('  Stack:', err.stack)
       const isDev = !import.meta.env.VITE_API_URL
+      console.log('  Es desarrollo?:', isDev)
       setStatus(isDev 
         ? 'No se puede conectar. Ejecuta: npm run puppet' 
         : 'Error de conexión con el servidor. Verifica la configuración.')
@@ -82,11 +107,13 @@ document.body.prepend(banner);`)
     const x = Math.round((e.clientX - rect.left) * scaleX)
     const y = Math.round((e.clientY - rect.top) * scaleY)
 
+    console.log('🖱️ Click en:', { x, y })
+    console.log('  API URL:', `${API}/click`)
     await fetch(`${API}/click`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ x, y }),
-    }).catch(() => {})
+    }).catch((err) => console.error('❌ Error en click:', err))
     setTimeout(takeScreenshot, 500)
   }
 
@@ -113,32 +140,44 @@ document.body.prepend(banner);`)
 
   // Inyectar CSS
   const injectCSS = async () => {
+    console.log('💅 Inyectando CSS...')
+    console.log('  URL completa:', `${API}/inject-css`)
+    console.log('  CSS code:', cssCode)
     try {
       const res = await fetch(`${API}/inject-css`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ css: cssCode }),
       })
+      console.log('  Respuesta inject-css status:', res.status)
       const data = await res.json()
+      console.log('  Data inject-css:', data)
       setStatus(data.success ? '✅ CSS inyectado' : `❌ ${data.error}`)
       await takeScreenshot()
     } catch (err) {
+      console.error('❌ Error en injectCSS:', err)
       setStatus(`❌ ${err.message}`)
     }
   }
 
   // Inyectar JS
   const injectJS = async () => {
+    console.log('⚡ Inyectando JS...')
+    console.log('  URL completa:', `${API}/inject-js`)
+    console.log('  JS code:', jsCode)
     try {
       const res = await fetch(`${API}/inject-js`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ js: jsCode }),
       })
+      console.log('  Respuesta inject-js status:', res.status)
       const data = await res.json()
+      console.log('  Data inject-js:', data)
       setStatus(data.success ? `✅ JS ejecutado → ${data.result}` : `❌ ${data.error}`)
       await takeScreenshot()
     } catch (err) {
+      console.error('❌ Error en injectJS:', err)
       setStatus(`❌ ${err.message}`)
     }
   }
@@ -150,11 +189,23 @@ document.body.prepend(banner);`)
     await takeScreenshot()
   }
 
+  // Debug inicial
+  useEffect(() => {
+    console.log('🎯 Componente montado')
+    console.log('  API constante:', API)
+    console.log('  URL inicial:', url)
+    console.log('  Connected:', connected)
+  }, [])
+
   // Auto-refresh screenshots
   useEffect(() => {
+    console.log('🔄 Iniciando auto-refresh de screenshots')
     takeScreenshot()
     const interval = setInterval(takeScreenshot, 2000)
-    return () => clearInterval(interval)
+    return () => {
+      console.log('🛑 Deteniendo auto-refresh')
+      clearInterval(interval)
+    }
   }, [takeScreenshot])
 
   return (
