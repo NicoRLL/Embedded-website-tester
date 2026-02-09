@@ -8,6 +8,7 @@
     "puppet": "node puppeteer-server.js",
     "proxy": "node proxy-server.js",
     "build": "vite build",
+    "vercel-build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
