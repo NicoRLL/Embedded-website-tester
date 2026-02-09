@@ -65,7 +65,10 @@ document.body.prepend(banner);`)
         setStatus(`Error: ${data.error}`)
       }
     } catch {
-      setStatus('No se puede conectar. Ejecuta: npm run puppet')
+      const isDev = !import.meta.env.VITE_API_URL
+      setStatus(isDev 
+        ? 'No se puede conectar. Ejecuta: npm run puppet' 
+        : 'Error de conexión con el servidor. Verifica la configuración.')
     }
     setLoading(false)
   }
@@ -247,9 +250,18 @@ document.body.prepend(banner);`)
           {!connected ? (
             <div className="disconnected">
               <h2>🔌 Servidor no conectado</h2>
-              <p>Ejecuta en otra terminal:</p>
-              <code>npm run puppet</code>
-              <p>Luego recarga esta página.</p>
+              {!import.meta.env.VITE_API_URL ? (
+                <>
+                  <p>Ejecuta en otra terminal:</p>
+                  <code>npm run puppet</code>
+                  <p>Luego recarga esta página.</p>
+                </>
+              ) : (
+                <>
+                  <p>No se puede conectar al servidor backend.</p>
+                  <p>Verifica que la variable VITE_API_URL esté configurada correctamente.</p>
+                </>
+              )}
             </div>
           ) : screenshot ? (
             <img
