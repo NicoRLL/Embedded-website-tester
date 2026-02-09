@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Prueba</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+        .content {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        button {
+            background: #fff;
+            color: #667eea;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        #counter {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Página de Prueba para Inyección</h1>
+        <p>Esta es una página de prueba local que puedes usar para probar la inyección de CSS y JavaScript.</p>
+        
+        <div class="content">
+            <h2>Contador Interactivo</h2>
+            <div id="counter">0</div>
+            <button onclick="incrementCounter()">Incrementar</button>
+            <button onclick="resetCounter()">Resetear</button>
+        </div>
+
+        <div class="content">
+            <h3>✅ Ejemplos de lo que puedes modificar:</h3>
+            <ul>
+                <li>Cambiar los colores del gradiente de fondo</li>
+                <li>Modificar el tamaño del texto</li>
+                <li>Ocultar o mostrar elementos</li>
+                <li>Manipular el contador</li>
+                <li>Agregar animaciones</li>
+            </ul>
+        </div>
+
+        <div class="content" id="info">
+            <h3>📝 Información del documento:</h3>
+            <p><strong>Título:</strong> <span id="doc-title"></span></p>
+            <p><strong>URL:</strong> <span id="doc-url"></span></p>
+            <p><strong>Hora de carga:</strong> <span id="load-time"></span></p>
+        </div>
+    </div>
+
+    <script>
+        let counter = 0;
+
+        function incrementCounter() {
+            counter++;
+            document.getElementById('counter').textContent = counter;
+        }
+
+        function resetCounter() {
+            counter = 0;
+            document.getElementById('counter').textContent = counter;
+        }
+
+        // Mostrar información del documento
+        document.getElementById('doc-title').textContent = document.title;
+        document.getElementById('doc-url').textContent = window.location.href;
+        document.getElementById('load-time').textContent = new Date().toLocaleTimeString();
+
+        console.log('🚀 Página de prueba cargada correctamente');
+    </script>
+</body>
+</html>

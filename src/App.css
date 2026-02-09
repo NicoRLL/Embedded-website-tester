@@ -1,0 +1,311 @@
+/* ── App Layout ── */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #0d0d0d;
+  color: #fff;
+}
+
+/* ── Browser Bar ── */
+.browser-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #1a1a1a;
+  border-bottom: 1px solid #333;
+  flex-shrink: 0;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 2px;
+}
+
+.nav-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: #2a2a2a;
+  color: #ccc;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.nav-btn:hover {
+  background: #3a3a3a;
+  color: #fff;
+}
+
+.url-bar {
+  flex: 1;
+}
+
+.url-input {
+  width: 100%;
+  padding: 8px 14px;
+  border: 1px solid #333;
+  border-radius: 20px;
+  background: #111;
+  color: #fff;
+  font-size: 13px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.url-input:focus {
+  border-color: #646cff;
+}
+
+.bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.inject-toggle {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: #2a2a2a;
+  color: #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+}
+
+.inject-toggle:hover {
+  background: #3a3a3a;
+}
+
+.inject-toggle.active {
+  background: #646cff;
+  color: #fff;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ef4444;
+  transition: background 0.3s;
+}
+
+.status-dot.connected {
+  background: #22c55e;
+}
+
+/* ── Status Bar ── */
+.status-bar {
+  padding: 6px 16px;
+  background: #1e1e2e;
+  border-bottom: 1px solid #333;
+  font-size: 12px;
+  color: #aaa;
+  flex-shrink: 0;
+}
+
+/* ── Main Area ── */
+.main-area {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── Inject Panel ── */
+.inject-panel {
+  width: 380px;
+  background: #141414;
+  border-right: 1px solid #333;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.panel-tabs {
+  display: flex;
+  border-bottom: 1px solid #333;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  background: transparent;
+  color: #888;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.15s;
+}
+
+.tab:hover {
+  color: #ccc;
+  background: #1a1a1a;
+}
+
+.tab.active {
+  color: #fff;
+  background: #1a1a1a;
+  border-bottom: 2px solid #646cff;
+}
+
+.panel-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+  gap: 10px;
+  overflow: hidden;
+}
+
+.code-editor {
+  flex: 1;
+  padding: 12px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #0d0d0d;
+  color: #22c55e;
+  font-family: 'SF Mono', 'Fira Code', 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.5;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.code-editor:focus {
+  border-color: #646cff;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-inject {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #22c55e;
+  color: #000;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-inject:hover {
+  background: #16a34a;
+}
+
+.btn-clean {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #333;
+  color: #ccc;
+  font-weight: 500;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-clean:hover {
+  background: #444;
+}
+
+/* ── Web View ── */
+.web-view {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+.web-screenshot {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  font-size: 18px;
+  z-index: 10;
+}
+
+.disconnected {
+  text-align: center;
+  color: #666;
+  padding: 60px 40px;
+}
+
+.disconnected h2 {
+  color: #888;
+  margin-bottom: 16px;
+}
+
+.disconnected code {
+  display: inline-block;
+  margin: 12px 0;
+  padding: 10px 20px;
+  background: #1a1a1a;
+  border: 1px solid #333;
+  border-radius: 8px;
+  color: #22c55e;
+  font-size: 15px;
+}
+
+.disconnected p {
+  margin: 8px 0;
+  color: #888;
+}
+
+/* ── Info Footer ── */
+.info-footer {
+  display: flex;
+  gap: 16px;
+  padding: 4px 16px;
+  background: #1a1a1a;
+  border-top: 1px solid #333;
+  font-size: 11px;
+  color: #666;
+  flex-shrink: 0;
+}
+
+.page-title {
+  color: #888;
+}
+
+.page-url {
+  color: #555;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
